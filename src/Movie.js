@@ -2,11 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const OMDBKEY = "14c8c5bf"
-const WINNINGMOVIEID = "tt0088763"
-
-function clickMe(){
-  alert('You clicked me!');
-}
 
 class Movie extends React.Component {
     state = {
@@ -20,6 +15,10 @@ class Movie extends React.Component {
         .then(res => {
           this.setState({ movieData: res });
           console.log(res);
+          //send winning plot to parent
+          if(res.imdbID === this.props.winningID){
+            this.props.sendPlot(res.Plot);
+          }
       });
     }
 
@@ -36,9 +35,6 @@ class Movie extends React.Component {
             <div>
               <button onClick = {() => this.props.setSelected(imdbID)}>{Title}</button>
             </div>
-            {imdbID === WINNINGMOVIEID && (
-              <p>{Plot && Plot.substr(0, 350)}</p>
-            )}
           </div>
         </div>
       );
