@@ -8,20 +8,40 @@ const OMDBKEY = "14c8c5bf"
 const WINNINGMOVIEID = "tt0088763"
 
 class App extends React.Component {
-  state = {
-    moviesList: ['tt0088763','tt0076759','tt0103064','tt0078748','tt0133093','tt0082971','tt0096251','tt0110912','tt0137523','tt7286456']
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      //moviesList: ['tt0088763','tt0076759','tt0103064','tt0078748','tt0133093','tt0082971','tt0096251','tt0110912','tt0137523','tt7286456']
+      moviesList: ['tt0088763','tt0076759'],
+      selected: ''
+    };
+  }
 
-  //{Movie.selectedMovie}
+  //onclick function to change current selection
+  selectedMovieChanged = (val) => {
+    this.setState({selected: val});
+    console.log(val);
+  }
+
+  //onclick function to check for correct guess
+  compareSelection = () => {
+    if(this.state.selected == WINNINGMOVIEID){
+      console.log("winner");
+    }else{
+      console.log("loser");
+    }
+  }
+
   render() {
-    const { moviesList } = this.state;
+    //const { moviesList } = this.state;
     return (
       <div>
         <h1>Picto Plots</h1>
-        {moviesList.map(movie => (
-          <Movie movieID={movie} key={movie} />
+        {this.state.moviesList.map(movie => (
+          <Movie movieID={movie} setSelected={this.selectedMovieChanged} key={movie} />
         ))}
-        <p>SelectedMovie: </p>
+        <p>SelectedMovie: {this.state.selected}</p>
+        <button onClick = {this.compareSelection}>Confirm Selection</button>
       </div>
     );
   }

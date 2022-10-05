@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const OMDBKEY = "14c8c5bf"
 const WINNINGMOVIEID = "tt0088763"
 
+function clickMe(){
+  alert('You clicked me!');
+}
+
 class Movie extends React.Component {
     state = {
       movieData: {},
-      selectedMovie: 'None'
+      //selectedMovie: 'None'
     };
 
     componentDidMount() {
@@ -15,14 +19,10 @@ class Movie extends React.Component {
         .then(res => res.data)
         .then(res => {
           this.setState({ movieData: res });
+          console.log(res);
       });
     }
 
-    setSelectedMovie(id) {
-      this.setState({selectedMovie: id})
-    }
-
-    //style = {{background: 'none', border: 'none'}} onClick = {this.setState({selectedMovie: this.imdbID})}
     render() {
       const {
         Title,
@@ -34,7 +34,7 @@ class Movie extends React.Component {
         <div>
           <div>
             <div>
-              <button onClick = {this.setSelectedMovie(imdbID)}>{Title}</button>
+              <button onClick = {() => this.props.setSelected(imdbID)}>{Title}</button>
             </div>
             {imdbID === WINNINGMOVIEID && (
               <p>{Plot && Plot.substr(0, 350)}</p>
