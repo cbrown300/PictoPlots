@@ -5,7 +5,7 @@ const OMDBKEY = "14c8c5bf"
 
 class Movie extends React.Component {
     state = {
-      movieData: {},
+      movieData: [],
       //selectedMovie: 'None'
     };
 
@@ -14,11 +14,11 @@ class Movie extends React.Component {
         .then(res => res.data)
         .then(res => {
           this.setState({ movieData: res });
-          console.log(res);
+          //console.log(res);
           //send winning plot to parent
-          if(res.imdbID === this.props.winningID){
-            this.props.sendPlot(res.Plot);
-          }
+          //if(res.imdbID === this.props.winningID){
+          //  this.props.sendPlot(res.Plot);
+          //}
       });
     }
 
