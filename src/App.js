@@ -11,8 +11,7 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      moviesList: ['tt0088763','tt0076759','tt0103064','tt0078748','tt0133093','tt0082971','tt0096251','tt0110912','tt0137523','tt7286456'],
-      //moviesList: ['tt0088763','tt0076759'],
+      moviesList: ['tt0088763','tt0082694','tt0088247','tt0090605','tt0090728','tt0096928','tt0096251','tt0093870','tt0087995','tt0080745'],
       plot: '',
       shortPlot: [],
       winner: '',
@@ -24,14 +23,10 @@ class App extends React.Component {
   selectedMovieChanged = (val) => {
     this.setState({selected: val});
     console.log(val);
-  }
-
-  //onclick function to check for correct guess
-  compareSelection = () => {
-    if(this.state.selected === this.state.winner){
-      console.log("winner");
+    if(val === this.state.winner){
+      console.log("NEW WINNER");
     }else{
-      console.log("loser");
+      console.log("NEW LOSER");
     }
   }
 
@@ -41,7 +36,7 @@ class App extends React.Component {
     console.log(val);
     //remove redundant words and characters from plot for images
     let plotArray = this.state.plot.toLowerCase().split(" ");
-    let removeWords = ['the', 'is', 'a', 'as', 'to', 'who', 'and', 'of', 'an', 'from', 'his', 'her', 'by', 'he', 'she', 'on', 'in', 'into'];
+    let removeWords = ['the', 'is', 'a', 'as', 'to', 'who', 'and', 'of', 'an', 'from', 'his', 'her', 'by', 'he', 'she', 'on', 'in', 'into', '-', 'for', 'has', 'its'];
     let resultPlot = plotArray.filter(word => !removeWords.includes(word));
     this.setState({shortPlot: resultPlot});
   }
@@ -70,26 +65,41 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Picto Plots</h1>
-        <p>{this.state.plot}</p>
-        <div>
+      <div class="App">
+        <div class="header-text">80's Sci-Fi Picto Plots</div>
+        <p>Guess the Movie Title Based On Randomly Generated Pictures of the Movie's Plot.</p>
+        <div class="images">
           {this.state.shortPlot.length > 1 && (
             this.state.shortPlot.map(word => (
             <Image plotWord={word} key={word} />
           )))}
         </div>
-        <div>
+        <br />
+        <div class="movies">
           {this.state.moviesList.map(movie => (
             <Movie movieID={movie}
                   setSelected={this.selectedMovieChanged}
                   sendPlot={this.getPlot}
                   winningID = {this.state.winner}
-                  key={movie} />
+                  key={movie}
+                  class="button-64"/>
           ))}
         </div>
-        <p>SelectedMovie: {this.state.selected}</p>
-        <button onClick = {this.compareSelection}>Confirm Selection</button>
+        <div>
+          {this.state.selected === this.state.winner ? (
+            <div>
+              <p>Winner! You Solved the Picto Plot!</p>
+              <p>Refresh the Page to Try a Different Plot.</p>
+            </div>
+          ) : <> {this.state.selected === '' ? (
+            null
+          ) : (
+            <div>
+              <p>Sorry thats the wrong guess, Try Again!</p>
+              <p>Hint: Hover over the pictures to see the word that generated it.</p>
+            </div>
+          )}</>}
+        </div>
       </div>
     );
   }

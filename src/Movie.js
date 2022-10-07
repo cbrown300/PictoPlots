@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './Movie.css';
 
 const OMDBKEY = "14c8c5bf"
 
@@ -30,13 +31,15 @@ class Movie extends React.Component {
       } = this.state.movieData;
 
       return (
+        <>
         <div>
-          <div>
-            <div>
-              <button onClick = {() => this.props.setSelected(imdbID)}>{Title}</button>
-            </div>
-          </div>
+            <button class="button" onClick = {() => this.props.setSelected(imdbID)}>
+              <span class="text">
+                {Title}
+              </span>
+            </button>
         </div>
+        </>
       );
     }
 }
