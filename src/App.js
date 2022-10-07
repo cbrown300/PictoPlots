@@ -3,9 +3,9 @@ import React from 'react';
 import axios from 'axios';
 import Movie from './Movie';
 import Image from './Image';
+import PopupMessage from "./PopupMessage";
 
 const OMDBKEY = "14c8c5bf"
-//const PIXABAYKEY = "17228303-ec297062a3db99e52d960db51"
 
 class App extends React.Component {
   constructor(props){
@@ -22,18 +22,11 @@ class App extends React.Component {
   //onclick function to change current selection
   selectedMovieChanged = (val) => {
     this.setState({selected: val});
-    console.log(val);
-    if(val === this.state.winner){
-      console.log("NEW WINNER");
-    }else{
-      console.log("NEW LOSER");
-    }
   }
 
   //get plot and shorten it for pictures
   getPlot = (val) => {
     this.setState({plot: val});
-    console.log(val);
     //remove redundant words and characters from plot for images
     let plotArray = this.state.plot.toLowerCase().split(" ");
     let removeWords = ['the', 'is', 'a', 'as', 'to', 'who', 'and', 'of', 'an', 'from', 'his', 'her', 'by', 'he', 'she', 'on', 'in', 'into', '-', 'for', 'has', 'its'];
@@ -46,7 +39,6 @@ class App extends React.Component {
     let index = Math.floor(Math.random() * this.state.moviesList.length);
     let winningID = this.state.moviesList[index];
     this.setState({winner: winningID});
-    console.log('Winner ' + winningID);
   }
 
   componentDidMount() {
@@ -66,8 +58,17 @@ class App extends React.Component {
   render() {
     return (
       <div class="App">
-        <div class="header-text">80's Sci-Fi Picto Plots</div>
-        <p>Guess the Movie Title Based On Randomly Generated Pictures of the Movie's Plot.</p>
+        <div class="header-text">80's Sci-Fi Picto Plots</div>  
+        <div>
+          {this.state.selected !== '' && (
+            <div>
+              <PopupMessage selected={this.state.selected}
+                            winner={this.state.winner}
+                            resetSelection={this.selectedMovieChanged}/>
+            </div>
+          )}
+        </div>
+        <p>Guess the Movie Title Based on Randomly Generated Pictures of the Movie's Plot</p>
         <div class="images">
           {this.state.shortPlot.length > 1 && (
             this.state.shortPlot.map(word => (
@@ -82,23 +83,8 @@ class App extends React.Component {
                   sendPlot={this.getPlot}
                   winningID = {this.state.winner}
                   key={movie}
-                  class="button-64"/>
+                  class="button"/>
           ))}
-        </div>
-        <div>
-          {this.state.selected === this.state.winner ? (
-            <div>
-              <p>Winner! You Solved the Picto Plot!</p>
-              <p>Refresh the Page to Try a Different Plot.</p>
-            </div>
-          ) : <> {this.state.selected === '' ? (
-            null
-          ) : (
-            <div>
-              <p>Sorry thats the wrong guess, Try Again!</p>
-              <p>Hint: Hover over the pictures to see the word that generated it.</p>
-            </div>
-          )}</>}
         </div>
       </div>
     );

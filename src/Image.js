@@ -13,7 +13,6 @@ class Image extends React.Component {
       axios.get(`https://pixabay.com/api/?key=${PIXABAYKEY}&q=${this.props.plotWord}&image_type=photo&per_page=20&pretty=true&safesearch=true`)
         .then(res => {
           this.setState({ imageData: res.data.hits });
-          console.log("IMAGE RECIEVED" + res);
       });
     }
 
@@ -24,7 +23,7 @@ class Image extends React.Component {
         //try to find an image with the plot word as tag if it could not find one with sci-fi
         taggedImageIndex = this.state.imageData.findIndex(image => image.tags.includes(this.props.plotWord));
       }
-      //console.log("taggedIndex " + taggedImageIndex);
+      
       let firstImage = '';
       if(taggedImageIndex !== -1){
         //get image with a tag that matches what we are looking for
@@ -33,7 +32,7 @@ class Image extends React.Component {
         //get first image in set from searched images relating to plot word
         firstImage = this.state.imageData.slice(0,1);
       }
-      //console.log("firstImageLength " + Object.keys(firstImage).length);
+
       return (
         <>
         {Object.keys(firstImage).length !== 0 && (
