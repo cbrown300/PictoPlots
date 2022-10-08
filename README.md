@@ -1,11 +1,6 @@
-# Getting Started with Create React App
+# Picto Plots - An 80s Sci-Fi Movie Experience
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
+## Once downloaded - In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
@@ -14,57 +9,32 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+## My Implementation of Picto Plots
+* Begin by getting info from OMDB using list of movies
+    * Get Titles, Plots, imdbID
+* Set-up buttons for selecting from the list of movies
+* Create comparison for selected movie and winning movie
+* Randomize winning movie generation
+* Narrow down plot grabbing for just winning movie
+* Shorten plot and remove filler words for image generation
+* Generate images using Pixabay from each word of the shortened plot
+* Cleanup and add styles to make website pretty
+* Additionally add popup for better display of winner/loser and easier restarting
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Features to Improve the Experience
+* More specific image generation as some images are less accurate to the meaning given to them
+  * Possibly try grouping words to find more specific images and then use single words as a failsafe if nothing is found
+    * Use a thesaurus of some kind in combination to also search for better words/images
+  * Maybe use some kind of AI art generator to make more specific images
+* Allow each movie to only be generated again after all other movies have been exhausted
+    * Have different image generation for each time a movie is seen again in the same session
+* Larger movie list to pull from that can change on each reload
+* Scoring mechanic for all movies to show amount of correct/incorrect guesses for each specific movie
+* Overall scoring during a session to track amount of correct to incorrect guesses
+* Make it so you can only get hover text hints so many times to increase the difficulty
+* Only show hover text after guessing incorrectly
+* Limit the amount of incorrect guesses and force to restart/try a different picture
+* Remove incorrect guesses from the list so you can't select them again
+* Make winning seem like a bigger deal and more exciting
+    * Add sounds for winning/losing
+    * Flashing lights or sparks
